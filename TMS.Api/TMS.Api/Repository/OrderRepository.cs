@@ -18,9 +18,10 @@ namespace TMS.Api.Repository
         {
             throw new NotImplementedException();
         }
-        public int Delete(int id)
+        public void Delete(Order @order)
         {
-            throw new NotImplementedException();
+            _dbContext.Remove(@order);
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<Order> GetAll()
@@ -29,16 +30,17 @@ namespace TMS.Api.Repository
             return orders;
         }
 
-        public Order GetById(int id)
+        public async Task<Order> GetById(int id)
         {
-            var @order = _dbContext.Orders.Where(o => o.OrderId == id).FirstOrDefault();
+            var @order = await _dbContext.Orders.Where(x => x.OrderId == id).FirstOrDefaultAsync();
 
             return @order;
         }
 
         public void Update(Order @order)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(@order).State = EntityState.Modified;
+            _dbContext.SaveChanges();
         }
     }
 }

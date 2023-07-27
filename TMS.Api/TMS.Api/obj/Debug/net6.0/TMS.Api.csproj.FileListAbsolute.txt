@@ -85,3 +85,9 @@ D:\Desktop\practica\.Net\TMS.Api\TMS.Api\obj\Debug\net6.0\refint\TMS.Api.dll
 D:\Desktop\practica\.Net\TMS.Api\TMS.Api\obj\Debug\net6.0\TMS.Api.pdb
 D:\Desktop\practica\.Net\TMS.Api\TMS.Api\obj\Debug\net6.0\TMS.Api.genruntimeconfig.cache
 D:\Desktop\practica\.Net\TMS.Api\TMS.Api\obj\Debug\net6.0\ref\TMS.Api.dll
+D:\Desktop\practica\.Net\TMS.Api\TMS.Api\bin\Debug\net6.0\AutoMapper.dll
+D:\Desktop\practica\.Net\TMS.Api\TMS.Api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Desktop\practica\.Net\TMS.Api\TMS.Api\bin\Debug\net6.0\nlog.config
+D:\Desktop\practica\.Net\TMS.Api\TMS.Api\bin\Debug\net6.0\NLog.dll
+D:\Desktop\practica\.Net\TMS.Api\TMS.Api\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+D:\Desktop\practica\.Net\TMS.Api\TMS.Api\bin\Debug\net6.0\NLog.Web.AspNetCore.dll
