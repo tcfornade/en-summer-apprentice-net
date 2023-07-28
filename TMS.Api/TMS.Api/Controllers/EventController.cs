@@ -19,7 +19,7 @@ namespace TMS.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
-        public EventController(IEventRepository eventRepository, IMapper mapper, ILogger logger)
+        public EventController(IEventRepository eventRepository, IMapper mapper, ILogger<EventController> logger)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
