@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using TMS.Api.Exceptions;
 using TMS.Api.Models;
 using TMS.Api.Models.Dto;
 using TMS.Api.Repository;
@@ -16,11 +17,13 @@ namespace TMS.Api.Controllers
     {
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public EventController(IEventRepository eventRepository, IMapper mapper)
+        public EventController(IEventRepository eventRepository, IMapper mapper, ILogger logger)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -36,12 +39,7 @@ namespace TMS.Api.Controllers
         public async Task<ActionResult<EventDto>> GetById(int id)
         {
             var @event = await _eventRepository.GetById(id);
-
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
+            
             var eventDto = _mapper.Map<EventDto>(@event);
 
             return Ok(eventDto);
@@ -70,6 +68,8 @@ namespace TMS.Api.Controllers
         [HttpPatch]
         public async Task<ActionResult<EventPatchDto>> Patch(EventPatchDto eventPatch)
         {
+            if (eventPatch == null) 
+                throw new ArgumentNullException(nameof(eventPatch));
             var eventEntity = await _eventRepository.GetById(eventPatch.EventId);
             if (eventEntity == null)
             {

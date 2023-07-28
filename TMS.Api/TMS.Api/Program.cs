@@ -1,3 +1,5 @@
+using NLog.Web;
+using TMS.Api.Middleware;
 using TMS.Api.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +10,9 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IEventRepository, EventRepository>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 
-//insert dependency injection
+//Insert dependency injection for Logger
 builder.Logging.ClearProviders();
-//...
+builder.Host.UseNLog();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
@@ -29,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
