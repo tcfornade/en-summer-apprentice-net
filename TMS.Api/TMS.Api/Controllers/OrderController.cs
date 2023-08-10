@@ -24,10 +24,10 @@ namespace TMS.Api.Controllers
         [HttpGet]
         public ActionResult<List<OrderDto>> GetAll()
         {
-            var orders = _orderRepository.GetAll();
-            var dtoOrders = orders.Select(x => _mapper.Map<OrderDto>(x));
-
-            return Ok(dtoOrders);
+            var orders = _orderRepository.GetAll().ToList();
+         
+            var ordersDTO = _mapper.Map<List<OrderDto>>(orders);
+            return Ok(ordersDTO);
         }
 
         [HttpGet]
@@ -77,5 +77,13 @@ namespace TMS.Api.Controllers
             return NoContent();
         }
 
+     /*   [HttpPost]
+        public async Task<ActionResult> AddAsync(OrderAddDTO orderAddDTO)
+        {
+            Order orderSaved = await _orderService.SaveOrderAsync(orderAddDTO);
+            return CreatedAtAction(nameof(GetById), new { id = orderSaved.OrderID }, orderSaved);
+
+        }
+*/
     }
 }

@@ -11,6 +11,7 @@ using TMS.Api.Repository;
 
 namespace TMS.Api.Controllers
 {
+    
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class EventController : ControllerBase
@@ -29,9 +30,19 @@ namespace TMS.Api.Controllers
         [HttpGet]
         public ActionResult<List<EventDto>> GetAll()
         {
+            /*var events = _eventRepository.GetAll();
+            var dtoEvents = events.Select(e =>
+            {
+                var dto = _mapper.Map<EventDto>(e);
+                dto.EventTypeName = e.EventType?.EventTypeName ?? string.Empty;
+                return dto;
+             });
+            return Ok(dtoEvents);*/
+
             var events = _eventRepository.GetAll();
-            var dtoEvents = events.Select(e => _mapper.Map<EventDto>(e));
-            return Ok(dtoEvents);
+            //var eventsDto = events.Select(e => _mapper.Map<EventDto>(e));
+            var eventsDTO = _mapper.Map<List<EventDto>>(events);
+            return Ok(eventsDTO);
         }
 
 
@@ -55,14 +66,8 @@ namespace TMS.Api.Controllers
                 return NotFound();
             }
 
-            var dtoEvent = new EventDto()
-            { EventId = @event.EventId,
-                EventDescription = @event.EventDescription,
-                EventName = @event.EventName,
-                EventType = @event.EventType?.EventTypeName ?? string.Empty,
-                Venue = @event.Venue?.Location ?? string.Empty
-            };
-            return Ok(dtoEvent);
+            
+            return Ok(@event);
         }
 
         [HttpPatch]
