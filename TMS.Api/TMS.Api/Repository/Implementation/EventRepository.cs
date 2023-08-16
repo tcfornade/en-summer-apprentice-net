@@ -37,21 +37,11 @@ namespace TMS.Api.Repository.Implementation
                .Include(e => e.Venue)
                .Where(e => e.VenueId != null)
                .ToList();
+
             return events;
         }
 
-        /*public IEnumerable<Event> GetAll()
-        {
-            var events = _dbContext.Events
-                .Include(e => e.EventType)
-                .Where(e => e.EventTypeId != null)
-                .Include(e => e.Venue)
-                .Where(e => e.VenueId != null)
-                .ToList();
-
-            return events;
-        }*/
-
+     
         public async Task<Event> GetById(int id)
         {
             var @event = await _dbContext.Events.Where(e => e.EventId == id).FirstOrDefaultAsync();

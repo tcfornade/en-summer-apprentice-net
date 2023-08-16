@@ -12,7 +12,18 @@ builder.Services.AddControllers();
 
 builder.Services.AddTransient<IEventRepository, EventRepository>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
-builder.Services.AddTransient<IEventTypeRepository, EventTypeRepository>();
+
+
+
+//Insert dependency injection for Logger
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddCors(options =>
 {
@@ -23,15 +34,6 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-
-//Insert dependency injection for Logger
-builder.Logging.ClearProviders();
-builder.Host.UseNLog();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 //AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -45,9 +47,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseCors();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

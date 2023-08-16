@@ -18,13 +18,13 @@ namespace TMS.Api.Controllers
     {
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+       // private readonly ILogger _logger;
 
-        public EventController(IEventRepository eventRepository, IMapper mapper, ILogger<EventController> logger)
+        public EventController(IEventRepository eventRepository, IMapper mapper)//, ILogger<EventController> logger)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
-            _logger = logger;
+          //  _logger = logger;
         }
 
         [HttpGet]
@@ -40,8 +40,8 @@ namespace TMS.Api.Controllers
             return Ok(dtoEvents);*/
 
             var events = _eventRepository.GetAll();
-            //var eventsDto = events.Select(e => _mapper.Map<EventDto>(e));
-            var eventsDTO = _mapper.Map<List<EventDto>>(events);
+            var eventsDTO = events.Select(e => _mapper.Map<EventDto>(e));
+           // var eventsDTO = _mapper.Map<List<EventDto>>(events);
             return Ok(eventsDTO);
         }
 
